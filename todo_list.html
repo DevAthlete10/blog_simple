@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List Reactiva</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .todo-list {
+      max-width: 300px;
+      margin: auto;
+    }
+    .todo-item {
+      background-color: #f9f9f9;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .todo-item button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="todo-list">
+    <h2>Lista de Tareas</h2>
+    <input id="new-todo" type="text" placeholder="Nueva tarea..." />
+    <button onclick=addTodo()>Agregar</button>
+    <ul id="todo-list"></ul>
+  </div>
+
+  <script>
+    // Estado reactivo
+    const state = {
+      todos: []
+    };
+
+    const setState = obj => {
+        for (const key in obj) {
+            if (state.hasOwnProperty(key)) {
+                state[key] = obj[key];                
+            }
+        }
+        render();
+    }
+    
+    const getState = () => JSON.parse(JSON.stringify(state));
+
+    // Función para agregar una tarea
+    function addTodo() {
+        const todoInput = document.getElementById('new-todo');
+        const newTodo = todoInput.value.trim();
+        if (newTodo != "") {          
+            const lastState = getState();
+            lastState.todos.push(newTodo);
+            setState({ todos: lastState.todos });  
+            // reactiveState.todos.push(newTodo);  // Se actualiza el estado reactivo
+            todoInput.value = '';  // Limpia el campo de entrada
+            // render();
+        }
+    }
+
+    // Función para eliminar una tarea
+    function removeTodo(index) {
+        console.log("hola");
+    //   reactiveState.todos.splice(index, 1);  // Actualiza el estado eliminando el elemento
+    }
+
+    // Función para renderizar la lista de tareas
+    function render() {
+        console.log(getState());
+      const todoList = document.getElementById('todo-list');
+      todoList.innerHTML = '';  // Limpia la lista antes de renderizar
+    //   const items = ;
+      getState().todos.forEach((todo, index) => {
+        const li = document.createElement('li');
+        li.className = 'todo-item';
+        li.innerHTML = `
+
+          ${todo}
+          <button onclick=${removeTodo(index)}>Eliminar</button>
+        `;
+        todoList.appendChild(li);
+    });
+    }
+
+    render();    
+    // document.addEventListener("DOMContentLoaded",render);
+  </script>
+</body>
+</html>
