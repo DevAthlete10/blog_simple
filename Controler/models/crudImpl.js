@@ -1,7 +1,5 @@
 import { ajax } from "../utils/ajax.js";
-import Crud from "./crud.js";
-import data from "./datos.json";
-
+import Crud from "./crud.js"
 
 export default class CrudImpl extends Crud {
 
@@ -9,9 +7,9 @@ export default class CrudImpl extends Crud {
    super();
    }
    
-   getData(){
-        ajax({
-            url: "datos.json",
+   async getData(){
+        await ajax({
+            url: "./models/datos.json",
             method: "Get",
             data: {},
             sdSuccess: (resp) =>{
