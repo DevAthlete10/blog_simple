@@ -1,14 +1,19 @@
 export async function ajax(props) {
-    let {url,method,data,sdSuccess} = props;
+    let {url,method,data,cbSuccess} = props;
 
     await fetch(url, {
             method: method,
             headers: {
               'Content-Type': 'application/json'
             },
-            body: method === "Get" ? null: JSON.stringify(data) // Convertir el objeto a JSON
+            body: method === "GET" ? null: JSON.stringify(data) // Convertir el objeto a JSON
           })
-        .then( res => res.ok ? res.json() : Promise.reject(res))
-        .then(sdSuccess(res));
+        .then(res => res.ok ? res.json() : Promise.reject(res))
+        .then(json => cbSuccess(json))
+        .catch((err) => {
+          console.log(err);
+        });
 
 }
+
+
