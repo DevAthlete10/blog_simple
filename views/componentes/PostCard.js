@@ -7,7 +7,7 @@ export function PostCard(props) {
             <h2> ${titulo} </h2>
 
             <p>
-                Ver contenido
+                ${descripcion}
             </p>
 
         </article>
