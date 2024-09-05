@@ -2,12 +2,12 @@ import CreateEvent from "../events/create_event.js";
 import UpdateEvent from "../events/update_event.js";
 import CrudImpl from "../models/crudImpl.js";
 import Observer from "../utils/observer.js";
-import Render from "../views/render.js";
 import CreatePostController from "./create_post_controller.js";
 import DeletePostController from "./delete_post_controller.js";
 import UpdatePostController from "./update_post_controller.js";
 import StateApp from "./estado.js";
-import BotonCreatePost from "../views/componentes/BotonCreatePost.js";
+import Render from "../views/render.js";
+import PostLogic from "../views/componentes/PostLogic.js";
 
 export default  class Logica extends Observer{
    #state;
@@ -16,7 +16,7 @@ export default  class Logica extends Observer{
    #deletePostController;
    #render;
    #data;
-   #createBoton;
+   #postLogic;
    constructor() {
       super();
       this.#updatePostController = new UpdatePostController();
@@ -24,11 +24,8 @@ export default  class Logica extends Observer{
       this.#deletePostController = new DeletePostController();      
       this.#state = new StateApp();
       this.#render = new Render();
-      this.#createBoton = new BotonCreatePost();
       this.#data = new CrudImpl();    
-
-      this.#createBoton.addObserver(this);
-      this.#createBoton.addObserver(this.#createPostController);
+      this.#postLogic = new PostLogic();
    }
    
 
@@ -43,13 +40,12 @@ export default  class Logica extends Observer{
       this.#render.execute();
    }
    
-   update(event,observed){
+   async update(event,observed){
       if (event instanceof CreateEvent) {
-         console.log("logica");
-         console.log(this.#state.getState());
+         await this.#createPostController.execute();
          this.#render.execute();
-
-         } if (event === UpdateEvent) {
+         console.log("hola");
+         } if (event instanceof UpdateEvent) {
             console.log("UpdateEvent");
             
          } else {

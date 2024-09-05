@@ -6,7 +6,7 @@ export async function ajax(props) {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: method === "GET" ? null: JSON.stringify(data) // Convertir el objeto a JSON
+            body: method === "GET" ? null: JSON.stringify(data)
           })
         .then(res => res.ok ? res.json() : Promise.reject(res))
         .then(json => cbSuccess(json))

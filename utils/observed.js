@@ -7,6 +7,10 @@ export default class Observed {
     this.#observers.push(observer);
    }
 
+   removeObserver(){
+    // this.#observers.
+   }
+
    notify(event){
         this.#observers.forEach(observer => {
             observer.update(event,this);
