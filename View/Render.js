@@ -24,24 +24,25 @@ export default class Render extends Observed {
    }
 
    router(){
-      document.addEventListener("click",(e)=>{
-            console.log("dddd");
+      document.addEventListener("click",(e)=>{            
             
          if (e.target.matches(".fa-folder")) {
             this.#loadPageArchive();              
+            this.#$main.appendChild(this.#footer.render());
          }
          if (e.target.matches(".fa-html5")) {
             this.#loadPageHome();  
+            this.#$main.appendChild(this.#footer.render());
          }
          if (e.target.matches(".fa-magnifying-glass")) {
             this.#loadPageSearch(); 
+            this.#$main.appendChild(this.#footer.render());
          }
          if (e.target.matches(".Close")) {
             this.#loadPageHome();   
+            this.#$main.appendChild(this.#footer.render());
          }
-
-         
-      this.#$main.appendChild(this.#footer.render());
+            console.log("footer");
 
       });
    }
