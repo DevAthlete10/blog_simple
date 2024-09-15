@@ -20,6 +20,8 @@ export default class Render extends Observed {
       $root.appendChild(menuBar.render());
       this.#footer = new SocialNetworksWidgetView();      
       this.#$main = document.querySelector(".Main");
+      this.#loadPageHome(); 
+      this.#$main.appendChild(this.#footer.render());
       this.router();
    }
 
@@ -27,21 +29,18 @@ export default class Render extends Observed {
       document.addEventListener("click",(e)=>{            
             
          if (e.target.matches(".fa-folder")) {
-            this.#loadPageArchive();              
-            this.#$main.appendChild(this.#footer.render());
+            this.#loadPageArchive();                          
          }
          if (e.target.matches(".fa-html5")) {
-            this.#loadPageHome();  
-            this.#$main.appendChild(this.#footer.render());
+            this.#loadPageHome();              
          }
          if (e.target.matches(".fa-magnifying-glass")) {
-            this.#loadPageSearch(); 
-            this.#$main.appendChild(this.#footer.render());
+            this.#loadPageSearch();             
          }
          if (e.target.matches(".Close")) {
-            this.#loadPageHome();   
-            this.#$main.appendChild(this.#footer.render());
-         }
+            this.#loadPageHome();               
+         }           
+         this.#$main.appendChild(this.#footer.render());
             console.log("footer");
 
       });

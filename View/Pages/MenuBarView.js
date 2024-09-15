@@ -11,10 +11,10 @@ export default class MenuBarView {
     ];
     const $menuBar = document.createElement("nav");
     $menuBar.classList.add("MenuBar");
-    $menuBar.innerHTML = `<ul></ul>`;
+    $menuBar.innerHTML = ``;
     items.forEach(item => {
-        // $menuBar
-        $menuBar.insertAdjacentHTML("afterbegin",item);
+        let temp = `<a class="${item}"></a>`;
+        $menuBar.insertAdjacentHTML("afterbegin",temp);
     });
 
     return $menuBar;
